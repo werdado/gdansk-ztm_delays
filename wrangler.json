@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ztm-collector",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-03",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "triggers": { "crons": [] },
+  "vars": { "OFFSET_SECONDS": "0", "ENABLED": "true" },
+  "r2_buckets": [{ "binding": "ARCHIVE", "bucket_name": "ztm-archive" }],
+  "env": {
+    "tick00": {
+      "name": "ztm-collector-00",
+      "triggers": { "crons": ["* * * * *"] },
+      "vars": { "OFFSET_SECONDS": "0", "ENABLED": "true" },
+      "r2_buckets": [{ "binding": "ARCHIVE", "bucket_name": "ztm-archive" }]
+    },
+    "tick20": {
+      "name": "ztm-collector-20",
+      "triggers": { "crons": ["* * * * *"] },
+      "vars": { "OFFSET_SECONDS": "20", "ENABLED": "true" },
+      "r2_buckets": [{ "binding": "ARCHIVE", "bucket_name": "ztm-archive" }]
+    },
+    "tick40": {
+      "name": "ztm-collector-40",
+      "triggers": { "crons": ["* * * * *"] },
+      "vars": { "OFFSET_SECONDS": "40", "ENABLED": "true" },
+      "r2_buckets": [{ "binding": "ARCHIVE", "bucket_name": "ztm-archive" }]
+    }
+  }
+}
