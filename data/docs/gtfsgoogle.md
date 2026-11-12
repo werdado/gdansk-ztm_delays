@@ -1,0 +1,57 @@
+# Opis pliku gtfsgoogle.zip
+
+Wartości pól i ich interpretacja przyjęta przez ZTM w Gdańsku prezentują się następująco:
+
+- plik agency.txt:
+  - agency\_id - identyfikator określający firmą zajmującą się obsługą transportu zbiorowego. Tu: organizator transportu.
+  - agency\_name - nazwa organizatora transportu
+  - agency\_url - URL do strony organizatora
+  - agency\_timezone - strefa czasowa w formacie publikowanym przez IANA ([https://www.iana.org/time-zones](https://www.iana.org/time-zones))
+  - agency\_lang - kod języka używanego przez organizatora
+  - agency\_phone - numer telefonu, pod którym można uzyskać informację na temat bieżącej sytuacji komunikacyjnej
+  - agency\_email - adres e-mail organizatora transportu
+- plik calendar\_dates.txt:
+  - service\_id - identyfikator grupujący zbiór kursów realizowanych w pojedynczym dniu kalendarzowym
+  - date - dzień kalendarzowy w formacie YYYYMMDD
+  - exception\_type - przyjmuje wartość "1": wszystkie zdefiniowane zbiory rozkładów należy traktować jako obowiązujące
+- plik feed\_info.txt:
+  - feed\_publisher\_name - nazwa instytucji publikującej zbiór GTFS. W tym przypadku: ZTM w Gdańsku.
+  - feed\_publisher\_url - odnośnik do strony instytucji publikującej zbiór GTFS.
+  - feed\_lang - kod domyślnego języka używanego w zbiorze GTFS;
+  - feed\_start\_date - pole nieuzupełniane
+  - feed\_end\_date - ostatni dzień kalendarzowy, na który zdefiniowany jest rozkład publikowany w zbiorze GTFS
+- plik routes.txt:
+  - route\_id - liczbowy identyfikator jendoznacznie identyfikujący linię komunikacyjną
+  - agency\_id - identyfikator z pliku agency.txt.
+  - route\_short\_name - identyfikator linii dla pasażera
+  - route\_long\_name - pole nieuzupełniane
+  - route\_desc - pole nieuzupełniane
+  - route\_type - identyfikator rodzaju transportu używanego do realizacji rozkładu; w przypadku ZTM w Gdańsku są to tramwaje ("900"), autobusy ("700") lub tramwaje wodne ("1200")
+  - route\_color - pole nieuzupełniane
+  - route\_text\_color - pole nieuzupełniane
+- plik shapes.txt
+  - shape\_id - identyfikator służący do zgrupowania współrzędnych punktów wchodzących w skład poszczególnych wariantów linii; używany w trips.txt w celu powiązania kursu z przebiegiem wariantu.
+  - shape\_pt\_lat,shape\_pt\_lon - współrzędne punktu
+  - shape\_pt\_sequence - numer porządkowy punktu w przebiegu wariantu
+- plik stop\_times.txt
+  - trip\_id - identyfikator kursu. Składa się z trzech części: <właściwy identyfikator kursu> \_<identyfikator wariantu> \_<identyfikator zadania>. Przyjęta konstrukcja pozwala na powiązanie trip\_id z innymi niż GTFS zbiorami publikowanymi w ramach otwartych danych, w szczególności z serwisem zwracającym bieżące pozycje GPS pojazdów komunikacji miejskiej. W celu powiązania danych należy użyć nastepującego przyporządkowania (po lewej część trip\_id, po prawej jego odpowiednik z pojedynczego obiektu publikowanego w ramach zasobu [**Pozycja GPS pojazdów**](https://ckan.multimediagdansk.pl/dataset/tristar/resource/0683c92f-7241-4698-bbcc-e348ee355076) ): <identyfikator wariantu> == "Route", <identyfikator zadania> == "VehicleService".
+  - arrival\_time - rozkładowy czas przyjazdu
+  - departure\_time - rozkładowy czas odjazdu
+  - stop\_id - identyfikator słupka ze zbioru stops.txt
+  - stop\_sequence - numer kolejny słupka na trasie kursu
+  - pickup\_type,drop\_off\_type - wartości określające sposób obsługi danego słupka: czy pasażerowie mogą wsiadać/wysiadac (tak: 0, nie: 1) lub czy dany słupek jest na żądanie (obie wartości przyjmują wartość 3, co oznacza, że pasażer musi zakomunikowac w określony sposób, że chce wsiąść lub wysiąść ze środka transportu)
+  - stop\_headsign - pole nieuzupełniane
+- plik stops.txt
+  - stop\_id - identyfikator słupka (używane także na stronie internetowej)
+  - stop\_name - nazwa składająca się z nazwy przystanku i kolejnego numeru słupka w ramach przystanku (np. Sikorskiego 01)
+  - stop\_lat,stop\_lon - współrzędne słupka przystankowego
+  - stop\_code - wartość umożliwiająca identyfikację słupka przez pasażera. W przypadku ZTM w Gdańsku identyczna z wartością stop\_id
+- plik trips.txt
+  - route\_id - identyfikator linii z pliku routes.txt; określa przynależność kursu do linii
+  - service\_id - identyfikator zbioru, do którego należy dany kurs. W przypadku ZTM w Gdańsku przyjęto założenie, że service\_id określa zbiór kursów realizowanych w ciągu dnia kalendarzowego; identyfikator używany w pliku calendar\_dates.txt w celu powiązania kursów zgrupowanych w service\_id z danym dniem kalendarzowym
+  - trip\_id - identyfikator kursu. Składa się z trzech części: <właściwy identyfikator kursu>\_<identyfikator wariantu>\_<identyfikator zadania>. Przyjęta konstrukcja pozwala na powiązanie trip\_id z innymi niż GTFS zbiorami publikowanymi w ramach otwartych danych, w szczególności z serwisem zwracającym bieżące pozycje GPS pojazdów komunikacji miejskiej. W celu powiązania danych należy użyć nastepującego przyporządkowania (po lewej część trip\_id, po prawej jego odpowiednik z pojedynczego obiektu publikowanego w ramach zasobu [**Pozycja GPS pojazdów**](https://ckan.multimediagdansk.pl/dataset/tristar/resource/0683c92f-7241-4698-bbcc-e348ee355076) ): <identyfikator wariantu> == "Route", <identyfikator zadania> == "VehicleService". Używany w pliku stop\_times.txt wcelu powiązania z rozkładem dla danego kursu
+  - trip\_headsign - nazwa punktu docelowego danego kursu; najczęściej nazwa ostatniego przystanku pasażerskiego w kursie
+  - trip\_short\_name - pole nieuzupełniane
+  - direction\_id - symboliczne określenie kierunku kursu "tam"-"powrót"
+  - shape\_id - identyfikator zbioru współrzędnych punktów służącego do zwizualizowania przebiegu wariantu powiązanego z kursem. Używany w shapes.txt
+  - wheelchair\_accessible - informacja o przystosowaniu taboru do przewozu wózków inwalidzkich, wynikająca z rozkladu.

@@ -1,0 +1,3 @@
+# Dojazd oddzielony od późniejszych obserwacji przy krańcu
+
+Wartości opóźnienia z dojazdu do końca trasy prezentujemy oddzielnie od późniejszych obserwacji przy krańcu, nawet jeżeli źródło nadal przypisuje pojazd do tego samego kursu. Ostatnie zero mogłoby sugerować nadrobienie opóźnienia podczas podróży, podczas gdy [rozpoznanie kursów](../rozpoznanie-kursow.md) wykazało długie serie zer przy krańcu i gwałtowne zmiany wartości w jego pobliżu. Zachowujemy późniejsze obserwacje do wglądu, a koszt dodatkowego rozpoznawania fazy przejazdu i możliwe nierozstrzygnięcie dojazdu przyjmujemy w zamian za niewyciąganie takiego nieuzasadnionego wniosku.
