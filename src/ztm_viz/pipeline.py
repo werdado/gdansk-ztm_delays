@@ -11,6 +11,8 @@ from pathlib import Path
 
 import numpy as np
 
+import logging
+
 from . import archive as arch
 from . import courses as crs
 from . import db, gtfs as gtfs_mod, store
@@ -19,6 +21,9 @@ from .matching import match_fragment
 from .params import Params
 from .route import Route, project
 from .values import PObs, analyze
+
+
+log = logging.getLogger("ztm_viz")
 
 
 @dataclass
@@ -96,18 +101,25 @@ def prepare(archive: Path, gtfs_path: Path, out: Path, lines: list[str], date_fr
         raise SystemExit(f"Niepoprawne wejście: {archive} nie wygląda na archiwum (brak runs/ i snapshots/).")
     if not gtfs_path.is_file():
         raise SystemExit(f"Niepoprawne wejście: brak pliku GTFS {gtfs_path}.")
+    log.info("prepare: skanowanie archiwum %s (linie: %s)", archive, ", ".join(lines))
     caps = arch.scan(archive)
     sel = arch.select_days(caps, params, date_from, date_to)
+    log.info("znaleziono %d prób pobrania; pełne doby: %s – %s (pominięte: %s)", len(caps), sel.days[0], sel.days[-1],
+             ", ".join(d["date"] for d in sel.skipped) or "brak")
     in_range = [c for c in caps if sel.start_utc <= c.slot < sel.end_utc]
     line_set = set(lines)
+    log.info("wczytywanie pomocniczego GTFS %s", gtfs_path)
     gt = gtfs_mod.load(gtfs_path, line_set)
+    log.info("odczyt %d zapisów GPS (to potrwa)", len(in_range))
     res = ingest(archive, in_range, line_set, sel.start_utc, sel.end_utc)
     obs = res.observations
     if not any(o.status == "ok" and o.assigned for o in obs):
         raise SystemExit("Brak użytecznych danych: w wybranym zakresie nie ma obserwacji z przypisaniem do kursu dla wskazanych linii.")
 
+    log.info("obserwacji: %d; grupowanie w kursy i dopasowanie do tras", len(obs))
     courses = crs.build(obs, params, sel.start_utc, sel.end_utc)
     state = _process(courses, obs, gt, lines, params)
+    log.info("kursów: %d; zapis %s", len(courses), out)
     _write(out, archive, gtfs_path, lines, sel, in_range, res, obs, courses, state, gt, params)
 
 
@@ -261,6 +273,7 @@ def _write(out, archive, gtfs_path, lines, sel, in_range, res, obs, courses, sta
         qtmp.write_text(json.dumps(quality, ensure_ascii=False, indent=1))
         os.replace(tmp, out)
         os.replace(qtmp, out.with_suffix(".quality.json"))
+        log.info("gotowe: %s oraz %s", out, out.with_suffix(".quality.json"))
     finally:
         for p in (tmp, qtmp):
             p.unlink(missing_ok=True)

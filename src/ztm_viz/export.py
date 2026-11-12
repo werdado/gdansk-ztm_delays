@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 import shutil
 import sqlite3
@@ -15,6 +16,7 @@ from .params import RULES_VERSION
 from .timeutil import to_local_wall
 
 FORMAT = 1
+log = logging.getLogger("ztm_viz")
 
 
 def _s(v):
@@ -35,6 +37,7 @@ def report(dataset: Path, out: Path) -> None:
         raise SystemExit("Brak zasobów przeglądarkowych (ztm_viz/web/index.html).")
     con = sqlite3.connect(f"file:{dataset}?mode=ro", uri=True)
     con.row_factory = sqlite3.Row
+    log.info("report: %s -> %s", dataset, out)
     _check_target(out, dataset)
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = out.parent / f".{out.name}.tmp{os.getpid()}"
@@ -55,6 +58,7 @@ def report(dataset: Path, out: Path) -> None:
             raise
         if old is not None:
             shutil.rmtree(old, ignore_errors=True)
+        log.info("gotowe: %s", out)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
         con.close()
@@ -85,6 +89,7 @@ def _write_data(con: sqlite3.Connection, root: Path) -> None:
                           "skipped_days": [d["date"] for d in rng["skipped_days"]]},
                 "params": json.loads(meta["params"]), "lines": [], "quality": "data/quality.json"}
     for line in lines:
+        log.info("  linia %s: geometria, wkłady dób i szczegóły kursów", line)
         entry = _write_line(con, root, line, rng["days"], quality)
         if entry is None:
             continue

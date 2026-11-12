@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import logging
 import sys
 from datetime import date
 from pathlib import Path
@@ -35,6 +36,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S", stream=sys.stderr)
     if args.command == "prepare":
         from .pipeline import prepare
         prepare(args.archive, args.gtfs, args.out, list(dict.fromkeys(args.lines)), args.date_from, args.date_to)

@@ -1,6 +1,7 @@
 """Odczyt zapisów GPS, deduplikacja obserwacji i rozstrzyganie wersji tej samej obserwacji."""
 from __future__ import annotations
 
+import logging
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -116,6 +117,9 @@ class IngestResult:
     bad_records: int = 0          # rekordy wskazanych linii, których nie dało się zinterpretować
 
 
+log = logging.getLogger("ztm_viz")
+
+
 def ingest(archive: Path, captures: Iterable[Capture], lines: set[str], start_utc: int, end_utc: int) -> IngestResult:
     sources: list[SourceRec] = []
     groups: dict[tuple[int, int], dict[tuple, list[int]]] = defaultdict(lambda: defaultdict(list))
@@ -123,7 +127,10 @@ def ingest(archive: Path, captures: Iterable[Capture], lines: set[str], start_ut
     errors = 0
     source_errors = 0
     bad_records = 0
+    captures = list(captures)
     for cap in captures:
+        if sources and len(sources) % 5000 == 0:
+            log.info("  odczytano %d z %d zapisów", len(sources), len(captures))
         src = SourceRec(len(sources) + 1, cap)
         sources.append(src)
         if not cap.snapshot_exists or cap.snapshot_key is None:
