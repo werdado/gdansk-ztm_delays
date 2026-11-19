@@ -1,0 +1,6 @@
+{
+  "name": "ztm-viz-web-tests",
+  "private": true,
+  "scripts": { "test": "node --test aggregate.test.js", "e2e": "node e2e.js" },
+  "devDependencies": { "playwright": "^1.49.0" }
+}

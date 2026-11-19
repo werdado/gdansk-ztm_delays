@@ -1,0 +1,43 @@
+// Test dymny na prawdziwym raporcie: node smoke-real.js <katalog raportu>
+const { chromium } = require('playwright');
+const http = require('http'), fs = require('fs'), path = require('path');
+const root = path.resolve(process.argv[2]);
+const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png' };
+const srv = http.createServer((q, r) => {
+  const u = decodeURIComponent(q.url.split('?')[0].replace(/^\/prefix\/deep/, ''));
+  const f = path.join(root, u.endsWith('/') ? u + 'index.html' : u);
+  fs.readFile(f, (e, b) => { if (e) { r.writeHead(404); r.end(); } else { r.writeHead(200, { 'content-type': types[path.extname(f)] || 'application/octet-stream' }); r.end(b); } });
+}).listen(0, async () => {
+  const port = srv.address().port;
+  const b = await chromium.launch();
+  const p = await b.newPage({ viewport: { width: 1280, height: 800 } });
+  const errs = [];
+  p.on('pageerror', e => errs.push(String(e)));
+  p.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+  await p.route(/tile\.openstreetmap/, r => r.abort());
+  const t0 = Date.now();
+  await p.goto(`http://127.0.0.1:${port}/prefix/deep/`);
+  await p.waitForTimeout(500);
+  await p.waitForLoadState('networkidle');
+  console.log('pierwszy widok [ms]:', Date.now() - t0);
+  await p.screenshot({ path: 'shots/real-1.png' });
+  console.log('tekst:', (await p.innerText('body')).slice(0, 600).replace(/\n+/g, ' | '));
+  const t1 = Date.now();
+  await p.click('#charts g.bar-g >> nth=3');
+  await p.waitForSelector('#details .kv');
+  console.log('odcinek: szczegóły po [ms]', Date.now() - t1, '|', (await p.innerText('#details')).slice(0, 300).replace(/\n+/g, ' | '));
+  const t2 = Date.now();
+  await p.click('#details tbody tr >> nth=0 >> button');
+  await p.waitForSelector('#course-view .card h2');
+  console.log('kurs po [ms]', Date.now() - t2, '|', (await p.innerText('#course-view')).slice(0, 500).replace(/\n+/g, ' | '));
+  await p.screenshot({ path: 'shots/real-course.png' });
+  await p.click('text=← Wróć do podsumowania');
+  await p.waitForSelector('#summary-view:not([hidden])');
+  console.log('powrót OK, url:', p.url().split('#')[1]);
+  const t3 = Date.now();
+  await p.selectOption('select >> nth=3', '8:00').catch(e => console.log('godziny:', e.message.slice(0, 80)));
+  await p.waitForTimeout(300);
+  console.log('filtr [ms]', Date.now() - t3);
+  console.log('błędy:', errs.filter(e => !/ERR_FAILED/.test(e)));
+  await b.close(); srv.close();
+});
