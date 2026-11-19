@@ -1,0 +1,1534 @@
+{
+ "lines": {
+  "127": {
+   "raw_records": 162661,
+   "observations": 147941,
+   "conflicts": 0,
+   "skipped_records": 1315,
+   "raw_skipped_records": 1445,
+   "courses": 1084,
+   "fragment_status": {
+    "ok": 1119,
+    "absent_in_gtfs": 146
+   },
+   "variants_absent_in_gtfs": [
+    {
+     "variant": "127-112",
+     "route_id": 127,
+     "trip_id": 112,
+     "courses": 20,
+     "observations": 238
+    },
+    {
+     "variant": "127-121",
+     "route_id": 127,
+     "trip_id": 121,
+     "courses": 18,
+     "observations": 224
+    },
+    {
+     "variant": "127-312",
+     "route_id": 127,
+     "trip_id": 312,
+     "courses": 73,
+     "observations": 330
+    },
+    {
+     "variant": "127-32",
+     "route_id": 127,
+     "trip_id": 32,
+     "courses": 1,
+     "observations": 3
+    },
+    {
+     "variant": "127-52",
+     "route_id": 127,
+     "trip_id": 52,
+     "courses": 1,
+     "observations": 22
+    },
+    {
+     "variant": "127-71",
+     "route_id": 127,
+     "trip_id": 71,
+     "courses": 6,
+     "observations": 108
+    },
+    {
+     "variant": "127-91",
+     "route_id": 127,
+     "trip_id": 91,
+     "courses": 13,
+     "observations": 203
+    }
+   ],
+   "segment_coverage": {
+    "0": {
+     "passes": 384,
+     "with_value": 349,
+     "with_change": 313,
+     "dist_p10_p50_p90_m": [
+      37.3,
+      107.8,
+      154.1
+     ],
+     "mean_speed_kmh_with_value": 10.5,
+     "mean_speed_kmh_without_value": 10.5
+    },
+    "1": {
+     "passes": 412,
+     "with_value": 250,
+     "with_change": 224,
+     "dist_p10_p50_p90_m": [
+      39.7,
+      62.6,
+      166.8
+     ],
+     "mean_speed_kmh_with_value": 18.8,
+     "mean_speed_kmh_without_value": 16.1
+    },
+    "2": {
+     "passes": 428,
+     "with_value": 422,
+     "with_change": 255,
+     "dist_p10_p50_p90_m": [
+      40.8,
+      86.4,
+      188.3
+     ],
+     "mean_speed_kmh_with_value": 10.1,
+     "mean_speed_kmh_without_value": 7.2
+    },
+    "3": {
+     "passes": 427,
+     "with_value": 385,
+     "with_change": 379,
+     "dist_p10_p50_p90_m": [
+      44.4,
+      120.8,
+      235.4
+     ],
+     "mean_speed_kmh_with_value": 25.1,
+     "mean_speed_kmh_without_value": 23.5
+    },
+    "4": {
+     "passes": 427,
+     "with_value": 392,
+     "with_change": 350,
+     "dist_p10_p50_p90_m": [
+      36.8,
+      134.3,
+      244.1
+     ],
+     "mean_speed_kmh_with_value": 20.1,
+     "mean_speed_kmh_without_value": 15.8
+    },
+    "5": {
+     "passes": 423,
+     "with_value": 399,
+     "with_change": 368,
+     "dist_p10_p50_p90_m": [
+      42.7,
+      130.1,
+      271.4
+     ],
+     "mean_speed_kmh_with_value": 30.5,
+     "mean_speed_kmh_without_value": 29.4
+    },
+    "6": {
+     "passes": 424,
+     "with_value": 391,
+     "with_change": 363,
+     "dist_p10_p50_p90_m": [
+      38.8,
+      113.9,
+      212.6
+     ],
+     "mean_speed_kmh_with_value": 27.2,
+     "mean_speed_kmh_without_value": 27.5
+    },
+    "7": {
+     "passes": 425,
+     "with_value": 398,
+     "with_change": 364,
+     "dist_p10_p50_p90_m": [
+      34.0,
+      97.9,
+      169.6
+     ],
+     "mean_speed_kmh_with_value": 11.0,
+     "mean_speed_kmh_without_value": 8.7
+    },
+    "8": {
+     "passes": 422,
+     "with_value": 421,
+     "with_change": 389,
+     "dist_p10_p50_p90_m": [
+      40.4,
+      110.0,
+      195.2
+     ],
+     "mean_speed_kmh_with_value": 10.4,
+     "mean_speed_kmh_without_value": 2.5
+    },
+    "9": {
+     "passes": 423,
+     "with_value": 423,
+     "with_change": 417,
+     "dist_p10_p50_p90_m": [
+      38.6,
+      74.1,
+      187.1
+     ],
+     "mean_speed_kmh_with_value": 9.7,
+     "mean_speed_kmh_without_value": null
+    },
+    "10": {
+     "passes": 424,
+     "with_value": 424,
+     "with_change": 421,
+     "dist_p10_p50_p90_m": [
+      34.2,
+      137.1,
+      262.5
+     ],
+     "mean_speed_kmh_with_value": 14.1,
+     "mean_speed_kmh_without_value": null
+    },
+    "11": {
+     "passes": 425,
+     "with_value": 424,
+     "with_change": 422,
+     "dist_p10_p50_p90_m": [
+      37.1,
+      84.4,
+      179.6
+     ],
+     "mean_speed_kmh_with_value": 15.9,
+     "mean_speed_kmh_without_value": 17.5
+    },
+    "12": {
+     "passes": 425,
+     "with_value": 401,
+     "with_change": 400,
+     "dist_p10_p50_p90_m": [
+      35.5,
+      76.3,
+      123.6
+     ],
+     "mean_speed_kmh_with_value": 20.5,
+     "mean_speed_kmh_without_value": 22.2
+    },
+    "13": {
+     "passes": 426,
+     "with_value": 395,
+     "with_change": 372,
+     "dist_p10_p50_p90_m": [
+      44.4,
+      121.9,
+      226.8
+     ],
+     "mean_speed_kmh_with_value": 20.7,
+     "mean_speed_kmh_without_value": 19.0
+    },
+    "14": {
+     "passes": 426,
+     "with_value": 414,
+     "with_change": 383,
+     "dist_p10_p50_p90_m": [
+      37.6,
+      118.1,
+      191.9
+     ],
+     "mean_speed_kmh_with_value": 18.2,
+     "mean_speed_kmh_without_value": 17.0
+    },
+    "15": {
+     "passes": 426,
+     "with_value": 426,
+     "with_change": 413,
+     "dist_p10_p50_p90_m": [
+      43.1,
+      113.5,
+      183.4
+     ],
+     "mean_speed_kmh_with_value": 19.0,
+     "mean_speed_kmh_without_value": null
+    },
+    "16": {
+     "passes": 360,
+     "with_value": 339,
+     "with_change": 337,
+     "dist_p10_p50_p90_m": [
+      0.0,
+      18.7,
+      71.5
+     ],
+     "mean_speed_kmh_with_value": 6.2,
+     "mean_speed_kmh_without_value": 17.6
+    },
+    "17": {
+     "passes": 366,
+     "with_value": 364,
+     "with_change": 355,
+     "dist_p10_p50_p90_m": [
+      34.5,
+      92.3,
+      227.0
+     ],
+     "mean_speed_kmh_with_value": 19.4,
+     "mean_speed_kmh_without_value": 12.5
+    },
+    "18": {
+     "passes": 366,
+     "with_value": 365,
+     "with_change": 364,
+     "dist_p10_p50_p90_m": [
+      37.3,
+      97.4,
+      150.5
+     ],
+     "mean_speed_kmh_with_value": 13.3,
+     "mean_speed_kmh_without_value": 0.0
+    },
+    "19": {
+     "passes": 363,
+     "with_value": 362,
+     "with_change": 362,
+     "dist_p10_p50_p90_m": [
+      41.5,
+      117.1,
+      192.1
+     ],
+     "mean_speed_kmh_with_value": 13.6,
+     "mean_speed_kmh_without_value": 0.0
+    },
+    "20": {
+     "passes": 365,
+     "with_value": 364,
+     "with_change": 360,
+     "dist_p10_p50_p90_m": [
+      38.1,
+      124.0,
+      204.9
+     ],
+     "mean_speed_kmh_with_value": 19.5,
+     "mean_speed_kmh_without_value": 5.0
+    },
+    "21": {
+     "passes": 365,
+     "with_value": 322,
+     "with_change": 320,
+     "dist_p10_p50_p90_m": [
+      41.2,
+      74.0,
+      117.2
+     ],
+     "mean_speed_kmh_with_value": 13.7,
+     "mean_speed_kmh_without_value": 13.8
+    },
+    "22": {
+     "passes": 365,
+     "with_value": 341,
+     "with_change": 301,
+     "dist_p10_p50_p90_m": [
+      42.7,
+      131.8,
+      234.7
+     ],
+     "mean_speed_kmh_with_value": 15.7,
+     "mean_speed_kmh_without_value": 15.6
+    },
+    "23": {
+     "passes": 362,
+     "with_value": 360,
+     "with_change": 337,
+     "dist_p10_p50_p90_m": [
+      38.8,
+      166.7,
+      284.6
+     ],
+     "mean_speed_kmh_with_value": 21.9,
+     "mean_speed_kmh_without_value": 18.2
+    },
+    "24": {
+     "passes": 362,
+     "with_value": 333,
+     "with_change": 327,
+     "dist_p10_p50_p90_m": [
+      35.1,
+      70.5,
+      185.2
+     ],
+     "mean_speed_kmh_with_value": 14.9,
+     "mean_speed_kmh_without_value": 13.4
+    },
+    "25": {
+     "passes": 148,
+     "with_value": 111,
+     "with_change": 1,
+     "dist_p10_p50_p90_m": [
+      33.4,
+      44.8,
+      51.8
+     ],
+     "mean_speed_kmh_with_value": 2.0,
+     "mean_speed_kmh_without_value": 0.1
+    },
+    "26": {
+     "passes": 365,
+     "with_value": 351,
+     "with_change": 103,
+     "dist_p10_p50_p90_m": [
+      41.4,
+      131.9,
+      199.8
+     ],
+     "mean_speed_kmh_with_value": 12.1,
+     "mean_speed_kmh_without_value": 10.1
+    },
+    "27": {
+     "passes": 371,
+     "with_value": 371,
+     "with_change": 349,
+     "dist_p10_p50_p90_m": [
+      39.4,
+      126.0,
+      238.9
+     ],
+     "mean_speed_kmh_with_value": 26.5,
+     "mean_speed_kmh_without_value": null
+    },
+    "28": {
+     "passes": 374,
+     "with_value": 374,
+     "with_change": 370,
+     "dist_p10_p50_p90_m": [
+      37.9,
+      112.4,
+      171.0
+     ],
+     "mean_speed_kmh_with_value": 11.5,
+     "mean_speed_kmh_without_value": null
+    },
+    "29": {
+     "passes": 372,
+     "with_value": 331,
+     "with_change": 330,
+     "dist_p10_p50_p90_m": [
+      39.5,
+      124.2,
+      183.5
+     ],
+     "mean_speed_kmh_with_value": 14.5,
+     "mean_speed_kmh_without_value": 12.6
+    },
+    "30": {
+     "passes": 374,
+     "with_value": 367,
+     "with_change": 323,
+     "dist_p10_p50_p90_m": [
+      33.3,
+      122.7,
+      251.2
+     ],
+     "mean_speed_kmh_with_value": 18.7,
+     "mean_speed_kmh_without_value": 13.6
+    },
+    "31": {
+     "passes": 338,
+     "with_value": 337,
+     "with_change": 327,
+     "dist_p10_p50_p90_m": [
+      39.6,
+      78.0,
+      152.1
+     ],
+     "mean_speed_kmh_with_value": 16.1,
+     "mean_speed_kmh_without_value": 6.7
+    },
+    "32": {
+     "passes": 417,
+     "with_value": 396,
+     "with_change": 374,
+     "dist_p10_p50_p90_m": [
+      42.4,
+      130.4,
+      170.5
+     ],
+     "mean_speed_kmh_with_value": 14.8,
+     "mean_speed_kmh_without_value": 11.2
+    },
+    "33": {
+     "passes": 417,
+     "with_value": 417,
+     "with_change": 395,
+     "dist_p10_p50_p90_m": [
+      41.7,
+      119.4,
+      221.9
+     ],
+     "mean_speed_kmh_with_value": 17.6,
+     "mean_speed_kmh_without_value": null
+    },
+    "34": {
+     "passes": 414,
+     "with_value": 391,
+     "with_change": 390,
+     "dist_p10_p50_p90_m": [
+      43.5,
+      111.1,
+      220.6
+     ],
+     "mean_speed_kmh_with_value": 18.9,
+     "mean_speed_kmh_without_value": 16.4
+    },
+    "35": {
+     "passes": 415,
+     "with_value": 402,
+     "with_change": 378,
+     "dist_p10_p50_p90_m": [
+      53.6,
+      98.0,
+      185.2
+     ],
+     "mean_speed_kmh_with_value": 18.8,
+     "mean_speed_kmh_without_value": 17.3
+    },
+    "36": {
+     "passes": 416,
+     "with_value": 416,
+     "with_change": 402,
+     "dist_p10_p50_p90_m": [
+      32.9,
+      97.9,
+      223.5
+     ],
+     "mean_speed_kmh_with_value": 17.5,
+     "mean_speed_kmh_without_value": null
+    },
+    "37": {
+     "passes": 414,
+     "with_value": 414,
+     "with_change": 414,
+     "dist_p10_p50_p90_m": [
+      37.4,
+      92.6,
+      166.7
+     ],
+     "mean_speed_kmh_with_value": 13.8,
+     "mean_speed_kmh_without_value": null
+    },
+    "38": {
+     "passes": 412,
+     "with_value": 387,
+     "with_change": 386,
+     "dist_p10_p50_p90_m": [
+      43.2,
+      127.1,
+      184.4
+     ],
+     "mean_speed_kmh_with_value": 12.3,
+     "mean_speed_kmh_without_value": 11.1
+    },
+    "39": {
+     "passes": 414,
+     "with_value": 373,
+     "with_change": 349,
+     "dist_p10_p50_p90_m": [
+      43.0,
+      101.9,
+      109.0
+     ],
+     "mean_speed_kmh_with_value": 7.7,
+     "mean_speed_kmh_without_value": 7.3
+    },
+    "40": {
+     "passes": 414,
+     "with_value": 413,
+     "with_change": 372,
+     "dist_p10_p50_p90_m": [
+      34.9,
+      121.9,
+      229.6
+     ],
+     "mean_speed_kmh_with_value": 13.5,
+     "mean_speed_kmh_without_value": 0.0
+    },
+    "41": {
+     "passes": 413,
+     "with_value": 372,
+     "with_change": 372,
+     "dist_p10_p50_p90_m": [
+      44.5,
+      106.3,
+      169.8
+     ],
+     "mean_speed_kmh_with_value": 14.4,
+     "mean_speed_kmh_without_value": 14.9
+    },
+    "42": {
+     "passes": 415,
+     "with_value": 412,
+     "with_change": 370,
+     "dist_p10_p50_p90_m": [
+      35.5,
+      139.1,
+      268.4
+     ],
+     "mean_speed_kmh_with_value": 19.4,
+     "mean_speed_kmh_without_value": 4.6
+    },
+    "43": {
+     "passes": 413,
+     "with_value": 413,
+     "with_change": 411,
+     "dist_p10_p50_p90_m": [
+      42.3,
+      167.9,
+      288.3
+     ],
+     "mean_speed_kmh_with_value": 27.9,
+     "mean_speed_kmh_without_value": null
+    },
+    "44": {
+     "passes": 411,
+     "with_value": 375,
+     "with_change": 375,
+     "dist_p10_p50_p90_m": [
+      41.3,
+      106.0,
+      243.1
+     ],
+     "mean_speed_kmh_with_value": 30.6,
+     "mean_speed_kmh_without_value": 33.4
+    },
+    "45": {
+     "passes": 407,
+     "with_value": 375,
+     "with_change": 341,
+     "dist_p10_p50_p90_m": [
+      42.2,
+      110.6,
+      248.5
+     ],
+     "mean_speed_kmh_with_value": 24.2,
+     "mean_speed_kmh_without_value": 22.2
+    },
+    "46": {
+     "passes": 411,
+     "with_value": 411,
+     "with_change": 372,
+     "dist_p10_p50_p90_m": [
+      37.9,
+      92.7,
+      145.2
+     ],
+     "mean_speed_kmh_with_value": 12.0,
+     "mean_speed_kmh_without_value": null
+    },
+    "47": {
+     "passes": 28,
+     "with_value": 21,
+     "with_change": 21,
+     "dist_p10_p50_p90_m": [
+      35.3,
+      42.8,
+      91.8
+     ],
+     "mean_speed_kmh_with_value": 13.6,
+     "mean_speed_kmh_without_value": 12.9
+    },
+    "48": {
+     "passes": 28,
+     "with_value": 27,
+     "with_change": 21,
+     "dist_p10_p50_p90_m": [
+      62.9,
+      109.7,
+      211.0
+     ],
+     "mean_speed_kmh_with_value": 8.9,
+     "mean_speed_kmh_without_value": 15.0
+    },
+    "49": {
+     "passes": 27,
+     "with_value": 22,
+     "with_change": 6,
+     "dist_p10_p50_p90_m": [
+      43.3,
+      62.2,
+      111.4
+     ],
+     "mean_speed_kmh_with_value": 5.2,
+     "mean_speed_kmh_without_value": 0.6
+    },
+    "50": {
+     "passes": 29,
+     "with_value": 28,
+     "with_change": 21,
+     "dist_p10_p50_p90_m": [
+      33.7,
+      116.2,
+      161.1
+     ],
+     "mean_speed_kmh_with_value": 6.9,
+     "mean_speed_kmh_without_value": 6.2
+    },
+    "51": {
+     "passes": 377,
+     "with_value": 340,
+     "with_change": 305,
+     "dist_p10_p50_p90_m": [
+      43.8,
+      93.7,
+      188.3
+     ],
+     "mean_speed_kmh_with_value": 23.3,
+     "mean_speed_kmh_without_value": 24.6
+    },
+    "52": {
+     "passes": 381,
+     "with_value": 381,
+     "with_change": 339,
+     "dist_p10_p50_p90_m": [
+      35.7,
+      83.7,
+      174.6
+     ],
+     "mean_speed_kmh_with_value": 17.6,
+     "mean_speed_kmh_without_value": null
+    },
+    "53": {
+     "passes": 380,
+     "with_value": 347,
+     "with_change": 346,
+     "dist_p10_p50_p90_m": [
+      42.7,
+      125.6,
+      197.8
+     ],
+     "mean_speed_kmh_with_value": 13.0,
+     "mean_speed_kmh_without_value": 9.0
+    },
+    "54": {
+     "passes": 378,
+     "with_value": 327,
+     "with_change": 301,
+     "dist_p10_p50_p90_m": [
+      44.9,
+      106.7,
+      166.5
+     ],
+     "mean_speed_kmh_with_value": 10.6,
+     "mean_speed_kmh_without_value": 8.2
+    },
+    "55": {
+     "passes": 379,
+     "with_value": 351,
+     "with_change": 302,
+     "dist_p10_p50_p90_m": [
+      41.4,
+      150.6,
+      262.5
+     ],
+     "mean_speed_kmh_with_value": 22.2,
+     "mean_speed_kmh_without_value": 19.1
+    },
+    "56": {
+     "passes": 380,
+     "with_value": 326,
+     "with_change": 302,
+     "dist_p10_p50_p90_m": [
+      54.7,
+      129.1,
+      184.9
+     ],
+     "mean_speed_kmh_with_value": 21.3,
+     "mean_speed_kmh_without_value": 19.5
+    },
+    "57": {
+     "passes": 374,
+     "with_value": 187,
+     "with_change": 159,
+     "dist_p10_p50_p90_m": [
+      48.1,
+      90.4,
+      120.3
+     ],
+     "mean_speed_kmh_with_value": 2.1,
+     "mean_speed_kmh_without_value": 1.4
+    },
+    "58": {
+     "passes": 388,
+     "with_value": 384,
+     "with_change": 379,
+     "dist_p10_p50_p90_m": [
+      35.7,
+      74.8,
+      106.4
+     ],
+     "mean_speed_kmh_with_value": 13.8,
+     "mean_speed_kmh_without_value": 13.7
+    },
+    "59": {
+     "passes": 389,
+     "with_value": 378,
+     "with_change": 372,
+     "dist_p10_p50_p90_m": [
+      37.1,
+      77.8,
+      147.0
+     ],
+     "mean_speed_kmh_with_value": 12.0,
+     "mean_speed_kmh_without_value": 14.2
+    },
+    "60": {
+     "passes": 390,
+     "with_value": 389,
+     "with_change": 372,
+     "dist_p10_p50_p90_m": [
+      35.0,
+      87.2,
+      101.9
+     ],
+     "mean_speed_kmh_with_value": 13.3,
+     "mean_speed_kmh_without_value": null
+    },
+    "61": {
+     "passes": 390,
+     "with_value": 379,
+     "with_change": 376,
+     "dist_p10_p50_p90_m": [
+      37.0,
+      100.9,
+      142.0
+     ],
+     "mean_speed_kmh_with_value": 16.4,
+     "mean_speed_kmh_without_value": 19.0
+    },
+    "62": {
+     "passes": 390,
+     "with_value": 390,
+     "with_change": 379,
+     "dist_p10_p50_p90_m": [
+      35.9,
+      120.6,
+      212.5
+     ],
+     "mean_speed_kmh_with_value": 22.8,
+     "mean_speed_kmh_without_value": null
+    },
+    "63": {
+     "passes": 389,
+     "with_value": 370,
+     "with_change": 370,
+     "dist_p10_p50_p90_m": [
+      34.4,
+      67.5,
+      77.0
+     ],
+     "mean_speed_kmh_with_value": 16.2,
+     "mean_speed_kmh_without_value": 16.2
+    },
+    "64": {
+     "passes": 390,
+     "with_value": 369,
+     "with_change": 352,
+     "dist_p10_p50_p90_m": [
+      41.5,
+      77.3,
+      115.3
+     ],
+     "mean_speed_kmh_with_value": 18.3,
+     "mean_speed_kmh_without_value": 21.0
+    },
+    "65": {
+     "passes": 389,
+     "with_value": 388,
+     "with_change": 367,
+     "dist_p10_p50_p90_m": [
+      41.0,
+      110.3,
+      191.7
+     ],
+     "mean_speed_kmh_with_value": 14.8,
+     "mean_speed_kmh_without_value": 33.3
+    },
+    "66": {
+     "passes": 388,
+     "with_value": 388,
+     "with_change": 386,
+     "dist_p10_p50_p90_m": [
+      37.8,
+      151.2,
+      259.5
+     ],
+     "mean_speed_kmh_with_value": 20.0,
+     "mean_speed_kmh_without_value": null
+    },
+    "67": {
+     "passes": 345,
+     "with_value": 310,
+     "with_change": 309,
+     "dist_p10_p50_p90_m": [
+      35.8,
+      92.9,
+      127.2
+     ],
+     "mean_speed_kmh_with_value": 16.2,
+     "mean_speed_kmh_without_value": 17.0
+    },
+    "68": {
+     "passes": 40,
+     "with_value": 40,
+     "with_change": 36,
+     "dist_p10_p50_p90_m": [
+      57.2,
+      127.2,
+      249.2
+     ],
+     "mean_speed_kmh_with_value": 23.4,
+     "mean_speed_kmh_without_value": null
+    },
+    "69": {
+     "passes": 23,
+     "with_value": 19,
+     "with_change": 19,
+     "dist_p10_p50_p90_m": [
+      101.5,
+      185.5,
+      322.3
+     ],
+     "mean_speed_kmh_with_value": 17.9,
+     "mean_speed_kmh_without_value": 28.8
+    },
+    "70": {
+     "passes": 44,
+     "with_value": 41,
+     "with_change": 41,
+     "dist_p10_p50_p90_m": [
+      44.0,
+      89.6,
+      134.2
+     ],
+     "mean_speed_kmh_with_value": 20.6,
+     "mean_speed_kmh_without_value": 20.0
+    },
+    "71": {
+     "passes": 30,
+     "with_value": 28,
+     "with_change": 27,
+     "dist_p10_p50_p90_m": [
+      104.0,
+      130.0,
+      267.6
+     ],
+     "mean_speed_kmh_with_value": 18.5,
+     "mean_speed_kmh_without_value": 26.9
+    }
+   }
+  },
+  "162": {
+   "raw_records": 91145,
+   "observations": 83112,
+   "conflicts": 0,
+   "skipped_records": 1357,
+   "raw_skipped_records": 1469,
+   "courses": 854,
+   "fragment_status": {
+    "absent_in_gtfs": 97,
+    "ok": 856
+   },
+   "variants_absent_in_gtfs": [
+    {
+     "variant": "162-121",
+     "route_id": 162,
+     "trip_id": 121,
+     "courses": 14,
+     "observations": 366
+    },
+    {
+     "variant": "162-51",
+     "route_id": 162,
+     "trip_id": 51,
+     "courses": 1,
+     "observations": 81
+    },
+    {
+     "variant": "162-61",
+     "route_id": 162,
+     "trip_id": 61,
+     "courses": 39,
+     "observations": 491
+    },
+    {
+     "variant": "162-82",
+     "route_id": 162,
+     "trip_id": 82,
+     "courses": 16,
+     "observations": 91
+    }
+   ],
+   "segment_coverage": {
+    "0": {
+     "passes": 373,
+     "with_value": 301,
+     "with_change": 197,
+     "dist_p10_p50_p90_m": [
+      43.8,
+      76.0,
+      104.4
+     ],
+     "mean_speed_kmh_with_value": 7.6,
+     "mean_speed_kmh_without_value": 6.7
+    },
+    "1": {
+     "passes": 373,
+     "with_value": 363,
+     "with_change": 291,
+     "dist_p10_p50_p90_m": [
+      43.7,
+      83.9,
+      194.3
+     ],
+     "mean_speed_kmh_with_value": 11.2,
+     "mean_speed_kmh_without_value": 8.5
+    },
+    "2": {
+     "passes": 370,
+     "with_value": 329,
+     "with_change": 320,
+     "dist_p10_p50_p90_m": [
+      44.5,
+      112.7,
+      244.9
+     ],
+     "mean_speed_kmh_with_value": 26.0,
+     "mean_speed_kmh_without_value": 23.6
+    },
+    "3": {
+     "passes": 370,
+     "with_value": 337,
+     "with_change": 300,
+     "dist_p10_p50_p90_m": [
+      37.5,
+      123.9,
+      250.2
+     ],
+     "mean_speed_kmh_with_value": 20.9,
+     "mean_speed_kmh_without_value": 15.5
+    },
+    "4": {
+     "passes": 360,
+     "with_value": 333,
+     "with_change": 305,
+     "dist_p10_p50_p90_m": [
+      40.8,
+      142.6,
+      274.8
+     ],
+     "mean_speed_kmh_with_value": 29.9,
+     "mean_speed_kmh_without_value": 26.2
+    },
+    "5": {
+     "passes": 362,
+     "with_value": 335,
+     "with_change": 310,
+     "dist_p10_p50_p90_m": [
+      39.8,
+      109.9,
+      210.9
+     ],
+     "mean_speed_kmh_with_value": 27.8,
+     "mean_speed_kmh_without_value": 25.2
+    },
+    "6": {
+     "passes": 372,
+     "with_value": 348,
+     "with_change": 313,
+     "dist_p10_p50_p90_m": [
+      37.5,
+      98.3,
+      175.4
+     ],
+     "mean_speed_kmh_with_value": 12.1,
+     "mean_speed_kmh_without_value": 8.7
+    },
+    "7": {
+     "passes": 371,
+     "with_value": 356,
+     "with_change": 332,
+     "dist_p10_p50_p90_m": [
+      38.1,
+      126.1,
+      179.6
+     ],
+     "mean_speed_kmh_with_value": 8.5,
+     "mean_speed_kmh_without_value": 8.1
+    },
+    "8": {
+     "passes": 371,
+     "with_value": 322,
+     "with_change": 312,
+     "dist_p10_p50_p90_m": [
+      36.4,
+      96.2,
+      141.0
+     ],
+     "mean_speed_kmh_with_value": 24.7,
+     "mean_speed_kmh_without_value": 24.2
+    },
+    "9": {
+     "passes": 368,
+     "with_value": 367,
+     "with_change": 318,
+     "dist_p10_p50_p90_m": [
+      42.7,
+      144.9,
+      254.1
+     ],
+     "mean_speed_kmh_with_value": 18.3,
+     "mean_speed_kmh_without_value": 21.7
+    },
+    "10": {
+     "passes": 370,
+     "with_value": 369,
+     "with_change": 365,
+     "dist_p10_p50_p90_m": [
+      40.6,
+      125.1,
+      211.9
+     ],
+     "mean_speed_kmh_with_value": 26.8,
+     "mean_speed_kmh_without_value": null
+    },
+    "11": {
+     "passes": 369,
+     "with_value": 369,
+     "with_change": 365,
+     "dist_p10_p50_p90_m": [
+      35.0,
+      103.5,
+      223.5
+     ],
+     "mean_speed_kmh_with_value": 20.3,
+     "mean_speed_kmh_without_value": null
+    },
+    "12": {
+     "passes": 371,
+     "with_value": 370,
+     "with_change": 368,
+     "dist_p10_p50_p90_m": [
+      40.1,
+      148.4,
+      247.9
+     ],
+     "mean_speed_kmh_with_value": 13.5,
+     "mean_speed_kmh_without_value": 7.5
+    },
+    "13": {
+     "passes": 372,
+     "with_value": 371,
+     "with_change": 369,
+     "dist_p10_p50_p90_m": [
+      36.6,
+      121.1,
+      179.9
+     ],
+     "mean_speed_kmh_with_value": 18.2,
+     "mean_speed_kmh_without_value": 16.4
+    },
+    "14": {
+     "passes": 372,
+     "with_value": 366,
+     "with_change": 366,
+     "dist_p10_p50_p90_m": [
+      41.2,
+      160.3,
+      267.9
+     ],
+     "mean_speed_kmh_with_value": 19.7,
+     "mean_speed_kmh_without_value": 12.0
+    },
+    "15": {
+     "passes": 363,
+     "with_value": 363,
+     "with_change": 356,
+     "dist_p10_p50_p90_m": [
+      30.4,
+      93.0,
+      154.9
+     ],
+     "mean_speed_kmh_with_value": 23.0,
+     "mean_speed_kmh_without_value": null
+    },
+    "16": {
+     "passes": 362,
+     "with_value": 338,
+     "with_change": 338,
+     "dist_p10_p50_p90_m": [
+      40.1,
+      81.8,
+      127.7
+     ],
+     "mean_speed_kmh_with_value": 6.5,
+     "mean_speed_kmh_without_value": 4.9
+    },
+    "17": {
+     "passes": 362,
+     "with_value": 340,
+     "with_change": 316,
+     "dist_p10_p50_p90_m": [
+      37.6,
+      98.3,
+      152.8
+     ],
+     "mean_speed_kmh_with_value": 26.5,
+     "mean_speed_kmh_without_value": 30.4
+    },
+    "18": {
+     "passes": 380,
+     "with_value": 380,
+     "with_change": 351,
+     "dist_p10_p50_p90_m": [
+      33.2,
+      124.1,
+      197.5
+     ],
+     "mean_speed_kmh_with_value": 20.0,
+     "mean_speed_kmh_without_value": null
+    },
+    "19": {
+     "passes": 375,
+     "with_value": 342,
+     "with_change": 342,
+     "dist_p10_p50_p90_m": [
+      42.4,
+      113.8,
+      166.6
+     ],
+     "mean_speed_kmh_with_value": 13.0,
+     "mean_speed_kmh_without_value": 12.5
+    },
+    "20": {
+     "passes": 296,
+     "with_value": 283,
+     "with_change": 256,
+     "dist_p10_p50_p90_m": [
+      0.0,
+      26.6,
+      108.5
+     ],
+     "mean_speed_kmh_with_value": 4.2,
+     "mean_speed_kmh_without_value": 14.1
+    },
+    "21": {
+     "passes": 6,
+     "with_value": 6,
+     "with_change": 6,
+     "dist_p10_p50_p90_m": [
+      2.4,
+      64.7,
+      85.9
+     ],
+     "mean_speed_kmh_with_value": 12.1,
+     "mean_speed_kmh_without_value": null
+    },
+    "22": {
+     "passes": 375,
+     "with_value": 353,
+     "with_change": 322,
+     "dist_p10_p50_p90_m": [
+      47.0,
+      95.4,
+      138.0
+     ],
+     "mean_speed_kmh_with_value": 16.2,
+     "mean_speed_kmh_without_value": 15.5
+    },
+    "23": {
+     "passes": 375,
+     "with_value": 370,
+     "with_change": 347,
+     "dist_p10_p50_p90_m": [
+      32.3,
+      91.0,
+      134.0
+     ],
+     "mean_speed_kmh_with_value": 11.2,
+     "mean_speed_kmh_without_value": 9.3
+    },
+    "24": {
+     "passes": 375,
+     "with_value": 375,
+     "with_change": 369,
+     "dist_p10_p50_p90_m": [
+      38.9,
+      114.8,
+      172.2
+     ],
+     "mean_speed_kmh_with_value": 10.6,
+     "mean_speed_kmh_without_value": null
+    },
+    "25": {
+     "passes": 377,
+     "with_value": 377,
+     "with_change": 374,
+     "dist_p10_p50_p90_m": [
+      38.2,
+      93.8,
+      254.8
+     ],
+     "mean_speed_kmh_with_value": 33.7,
+     "mean_speed_kmh_without_value": null
+    },
+    "26": {
+     "passes": 377,
+     "with_value": 377,
+     "with_change": 376,
+     "dist_p10_p50_p90_m": [
+      34.6,
+      116.7,
+      200.2
+     ],
+     "mean_speed_kmh_with_value": 17.2,
+     "mean_speed_kmh_without_value": null
+    },
+    "27": {
+     "passes": 377,
+     "with_value": 377,
+     "with_change": 375,
+     "dist_p10_p50_p90_m": [
+      42.8,
+      91.8,
+      168.3
+     ],
+     "mean_speed_kmh_with_value": 14.9,
+     "mean_speed_kmh_without_value": null
+    },
+    "28": {
+     "passes": 380,
+     "with_value": 380,
+     "with_change": 377,
+     "dist_p10_p50_p90_m": [
+      35.7,
+      126.8,
+      232.5
+     ],
+     "mean_speed_kmh_with_value": 12.1,
+     "mean_speed_kmh_without_value": null
+    },
+    "29": {
+     "passes": 377,
+     "with_value": 357,
+     "with_change": 357,
+     "dist_p10_p50_p90_m": [
+      49.0,
+      129.1,
+      196.0
+     ],
+     "mean_speed_kmh_with_value": 21.1,
+     "mean_speed_kmh_without_value": 20.9
+    },
+    "30": {
+     "passes": 377,
+     "with_value": 327,
+     "with_change": 311,
+     "dist_p10_p50_p90_m": [
+      43.7,
+      80.3,
+      185.7
+     ],
+     "mean_speed_kmh_with_value": 19.0,
+     "mean_speed_kmh_without_value": 18.2
+    },
+    "31": {
+     "passes": 377,
+     "with_value": 376,
+     "with_change": 326,
+     "dist_p10_p50_p90_m": [
+      32.9,
+      128.5,
+      251.0
+     ],
+     "mean_speed_kmh_with_value": 20.8,
+     "mean_speed_kmh_without_value": 0.0
+    },
+    "32": {
+     "passes": 377,
+     "with_value": 359,
+     "with_change": 356,
+     "dist_p10_p50_p90_m": [
+      38.8,
+      96.4,
+      200.9
+     ],
+     "mean_speed_kmh_with_value": 12.8,
+     "mean_speed_kmh_without_value": 15.6
+    },
+    "33": {
+     "passes": 377,
+     "with_value": 377,
+     "with_change": 359,
+     "dist_p10_p50_p90_m": [
+      34.2,
+      132.7,
+      239.5
+     ],
+     "mean_speed_kmh_with_value": 14.9,
+     "mean_speed_kmh_without_value": null
+    },
+    "34": {
+     "passes": 368,
+     "with_value": 361,
+     "with_change": 361,
+     "dist_p10_p50_p90_m": [
+      42.3,
+      157.8,
+      288.4
+     ],
+     "mean_speed_kmh_with_value": 19.7,
+     "mean_speed_kmh_without_value": 21.0
+    },
+    "35": {
+     "passes": 371,
+     "with_value": 362,
+     "with_change": 355,
+     "dist_p10_p50_p90_m": [
+      43.8,
+      159.4,
+      288.0
+     ],
+     "mean_speed_kmh_with_value": 29.4,
+     "mean_speed_kmh_without_value": 23.8
+    },
+    "36": {
+     "passes": 377,
+     "with_value": 355,
+     "with_change": 341,
+     "dist_p10_p50_p90_m": [
+      40.1,
+      107.6,
+      241.9
+     ],
+     "mean_speed_kmh_with_value": 30.8,
+     "mean_speed_kmh_without_value": 26.3
+    },
+    "37": {
+     "passes": 378,
+     "with_value": 348,
+     "with_change": 327,
+     "dist_p10_p50_p90_m": [
+      45.5,
+      125.6,
+      245.0
+     ],
+     "mean_speed_kmh_with_value": 25.0,
+     "mean_speed_kmh_without_value": 20.8
+    },
+    "38": {
+     "passes": 377,
+     "with_value": 376,
+     "with_change": 347,
+     "dist_p10_p50_p90_m": [
+      40.4,
+      92.6,
+      146.5
+     ],
+     "mean_speed_kmh_with_value": 12.1,
+     "mean_speed_kmh_without_value": 5.0
+    },
+    "39": {
+     "passes": 378,
+     "with_value": 326,
+     "with_change": 323,
+     "dist_p10_p50_p90_m": [
+      37.4,
+      57.7,
+      86.8
+     ],
+     "mean_speed_kmh_with_value": 14.1,
+     "mean_speed_kmh_without_value": 14.0
+    },
+    "40": {
+     "passes": 364,
+     "with_value": 339,
+     "with_change": 292,
+     "dist_p10_p50_p90_m": [
+      57.6,
+      113.6,
+      206.9
+     ],
+     "mean_speed_kmh_with_value": 8.9,
+     "mean_speed_kmh_without_value": 10.9
+    },
+    "41": {
+     "passes": 271,
+     "with_value": 202,
+     "with_change": 28,
+     "dist_p10_p50_p90_m": [
+      31.1,
+      56.6,
+      134.7
+     ],
+     "mean_speed_kmh_with_value": 2.1,
+     "mean_speed_kmh_without_value": 0.7
+    }
+   }
+  }
+ },
+ "format": 1,
+ "range": {
+  "from": "2026-11-04",
+  "to": "2026-11-10",
+  "days": [
+   "2026-11-04",
+   "2026-11-05",
+   "2026-11-06",
+   "2026-11-07",
+   "2026-11-08",
+   "2026-11-09",
+   "2026-11-10"
+  ],
+  "skipped_days": [
+   {
+    "date": "2026-11-03",
+    "reason": "niepełna doba: pierwsza próba po początku doby"
+   },
+   {
+    "date": "2026-11-11",
+    "reason": "niepełna doba: ostatnia próba przed końcem doby"
+   }
+  ],
+  "timezone": "Europe/Warsaw"
+ },
+ "inputs": {
+  "archive": "..",
+  "gtfs": "../gtfsgoogle.zip",
+  "gtfs_sha256": "50b3b07e48a71786e98905c93e1823c61f7ff3ce8279fa57c1cc324765047a47",
+  "gtfs_size": 27057210,
+  "gtfs_feed_end_date": "20261125",
+  "first_slot": "2026-11-03T23:00:00Z",
+  "last_slot": "2026-11-10T22:59:40Z",
+  "attempts_in_range": 30232
+ },
+ "counts": {
+  "source_records": 30232,
+  "snapshots_read": 30190,
+  "snapshot_errors": 0,
+  "bad_records": 0,
+  "source_errors": 42,
+  "provenance_gaps": 0,
+  "raw_records": 253806,
+  "observations": 231053,
+  "conflicts": 0,
+  "without_trip": 2672,
+  "partial_runs": 62
+ },
+ "lines_without_data": [],
+ "notes": [
+  "Wartości opóźnień pochodzą z archiwalnego GPS; rozkład GTFS służy wyłącznie jako pomocnicza geometria i nazwy.",
+  "Konflikty wersji tej samej obserwacji są oceniane tylko wśród rekordów wskazanych linii."
+ ]
+}

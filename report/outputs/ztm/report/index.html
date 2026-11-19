@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opóźnienia komunikacji miejskiej w Gdańsku</title>
+<link rel="stylesheet" href="assets/vendor/leaflet-1.9.4/leaflet.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<noscript>Raport wymaga włączonej obsługi JavaScript.</noscript>
+<div id="file-notice" class="notice error" hidden>
+  <strong>Raport wymaga udostępnienia przez HTTP.</strong>
+  Otwarcie pliku bezpośrednio z dysku (<code>file://</code>) nie działa. Uruchom <code>uv run ztm-viz serve --report &lt;katalog raportu&gt;</code> albo udostępnij katalog dowolnym serwerem plików statycznych.
+</div>
+<div id="app" hidden>
+  <header class="top">
+    <h1>Opóźnienia komunikacji miejskiej w Gdańsku</h1>
+    <p id="period" class="muted"></p>
+  </header>
+  <div id="status" class="notice" role="status" hidden></div>
+
+  <section id="summary-view">
+    <form id="filters" class="filters" aria-label="Filtry" onsubmit="return false">
+      <label>Linia <select id="f-line"></select></label>
+      <label>Kierunek <select id="f-dir"></select></label>
+      <label>Wariant trasy <select id="f-variant"></select></label>
+      <label>Pora dnia od <select id="f-from"></select></label>
+      <label>do <select id="f-to"></select></label>
+      <fieldset class="days"><legend>Dni</legend><div id="f-days"></div>
+        <button type="button" id="days-all">Wszystkie dni</button></fieldset>
+    </form>
+    <p id="active-filter" class="active-filter"></p>
+    <p id="midnight-note" class="notice" hidden></p>
+
+    <div class="legend" aria-label="Legenda">
+      <span><i class="sw green"></i>zielony: bez opóźnienia (≤ 0, także przed czasem)</span>
+      <span><i class="sw orange"></i>pomarańczowy: do 5 min</span>
+      <span><i class="sw red"></i>czerwony: ponad 5 min</span>
+      <span><i class="sw grey"></i>szary: brak danych</span>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>Mapa</h2><div id="map" role="application" aria-label="Mapa odcinków"></div>
+        <p id="tile-note" class="muted" hidden>Podkład mapy jest niedostępny; trasy i wykres działają normalnie.</p></div>
+      <div class="card"><h2>Opóźnienie wzdłuż trasy</h2>
+        <p class="muted small">Typowe opóźnienie (mediana kursów) przy końcu każdego odcinka. Kliknij odcinek, aby zobaczyć szczegóły.</p>
+        <div id="charts"></div></div>
+    </div>
+    <div class="card" id="details"><h2>Szczegóły odcinka</h2><p class="muted">Wybierz odcinek na mapie lub wykresie.</p></div>
+  </section>
+
+  <section id="course-view" hidden></section>
+
+  <section class="card" id="quality-card">
+    <details><summary>Jakość i pochodzenie danych</summary><div id="quality"></div></details>
+  </section>
+  <footer class="muted small">Dane: archiwum ZTM Gdańsk (GPS). Rozkład jazdy jest tylko wskazówką dla tras i nazw. Opóźnienie przy końcu odcinka nie jest pomiarem dokładnego czasu przyjazdu.</footer>
+</div>
+<script src="assets/vendor/leaflet-1.9.4/leaflet.js"></script>
+<script src="assets/fetchjson.js"></script>
+<script src="assets/aggregate.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
