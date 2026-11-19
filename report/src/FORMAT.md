@@ -1,8 +1,8 @@
 # Format danych raportu (wersja 1)
 
-Umowa między generatorem (`ztm_viz.export`) a przeglądarką (`src/ztm_viz/web/`). Wszystkie ścieżki są względne wobec katalogu raportu. JSON jest zapisywany w UTF-8, bez wcięć. Czasy `*L` to **czas lokalny Europe/Warsaw jako „sekundy ściennego zegara”**: epoch UTC + przesunięcie strefy w tym momencie. Dzięki temu `Math.floor(L/86400)` to numer lokalnej doby (dni od 1970-01-01), a `L % 86400` to pora dnia w sekundach. Czasy `*U` to zwykły epoch UTC w sekundach. Brak wartości to `null` (nigdy zero zastępcze).
+Umowa między generatorem (`ztm_viz.export`) a przeglądarką (`src/ztm_viz/web/`). Wszystkie ścieżki są względne wobec katalogu raportu. JSON jest zapisywany w UTF-8, bez wcięć, a każdy plik pod `data/` jest skompresowany gzipem (`*.json.gz`, [ADR 0006](../docs/adr/0006-dane-raportu-jako-gzip.md)): w storage leży surowy gzip bez `Content-Encoding`, a rozpakowuje go przeglądarka (`DecompressionStream`, `assets/fetchjson.js`). Ścieżki w manifeście wskazują pliki `.json.gz`. Czasy `*L` to **czas lokalny Europe/Warsaw jako „sekundy ściennego zegara”**: epoch UTC + przesunięcie strefy w tym momencie. Dzięki temu `Math.floor(L/86400)` to numer lokalnej doby (dni od 1970-01-01), a `L % 86400` to pora dnia w sekundach. Czasy `*U` to zwykły epoch UTC w sekundach. Brak wartości to `null` (nigdy zero zastępcze).
 
-## `data/manifest.json`
+## `data/manifest.json.gz`
 
 ```json
 {
@@ -22,11 +22,11 @@ Umowa między generatorem (`ztm_viz.export`) a przeglądarką (`src/ztm_viz/web/
          "variants": [{"key": "202-41", "route_id": 202, "trip_id": 41, "headsign": "Jasień PKM", "in_gtfs": true,
                        "status": "ok", "courses": 700, "observations": 9000}]}
       ],
-      "geometry": "data/lines/127/geometry.json",
-      "days": {"2026-11-04": "data/lines/127/days/2026-11-04.json"}
+      "geometry": "data/lines/127/geometry.json.gz",
+      "days": {"2026-11-04": "data/lines/127/days/2026-11-04.json.gz"}
     }
   ],
-  "quality": "data/quality.json"
+  "quality": "data/quality.json.gz"
 }
 ```
 
@@ -35,7 +35,7 @@ Umowa między generatorem (`ztm_viz.export`) a przeglądarką (`src/ztm_viz/web/
 * Kierunek (`dir`) = `direction_id` GTFS. Etykieta = cel najczęściej obserwowanego wariantu.
 * Lista linii i kierunków pochodzi wyłącznie z przygotowanego zbioru. Warianty bez odcinków (`absent_in_gtfs`, `ambiguous`) nie mają kierunku i są wymienione osobno w `lines[].variants_outside_timetable` (ta sama postać co elementy `variants`, bez `in_gtfs`).
 
-## `data/lines/<slug>/geometry.json`
+## `data/lines/<slug>/geometry.json.gz`
 
 ```json
 {
@@ -55,7 +55,7 @@ Umowa między generatorem (`ztm_viz.export`) a przeglądarką (`src/ztm_viz/web/
 * `variants[].segments` to uporządkowana lista odcinków wariantu (do osi X wykresu: skumulowane `length_m`). Wykres rysuje osobny przebieg dla każdego wariantu, nie łączy odgałęzień.
 * `path` to `[lat, lon]` (kolejność Leaflet).
 
-## `data/lines/<slug>/days/<YYYY-MM-DD>.json`
+## `data/lines/<slug>/days/<YYYY-MM-DD>.json.gz`
 
 Wkłady kursów do odcinków, pogrupowane według **lokalnej doby obserwacji końca odcinka**. Kurs wnosi najwyżej jedną wartość do danego odcinka.
 
@@ -79,7 +79,7 @@ Wkłady kursów do odcinków, pogrupowane według **lokalnej doby obserwacji ko�
 * `courses[].startL` to rozkładowy czas rozpoczęcia (archiwalny).
 * Zmiana = `end − start` liczona w kursie; mediana po kursach.
 
-## `data/lines/<slug>/courses/<id>.json` (na żądanie)
+## `data/lines/<slug>/courses/<id>.json.gz` (na żądanie)
 
 ```json
 {
@@ -110,7 +110,7 @@ Wkłady kursów do odcinków, pogrupowane według **lokalnej doby obserwacji ko�
 * `arrival` = wartość dojazdu do krańca albo `{"obs": null, "delay": null, "uncertain": "powód po polsku"}`; `null`, gdy wariant bez geometrii.
 * Kursy wariantu nieobecnego w rozkładzie mają `segments: []` i `variant_status: "absent_in_gtfs"`, ale zachowują obserwacje.
 
-## `data/quality.json`
+## `data/quality.json.gz`
 
 Wolna struktura; przeglądarka pokazuje ją w panelu „Jakość i pochodzenie danych”:
 

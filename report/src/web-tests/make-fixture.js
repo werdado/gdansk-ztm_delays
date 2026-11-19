@@ -1,8 +1,8 @@
 // Ręcznie budowany raport zgodny z FORMAT.md (niezależny od potoku Pythona).
-const fs = require('fs'), path = require('path');
+const fs = require('fs'), path = require('path'), zlib = require('zlib');
 const out = process.argv[2] || path.join(__dirname, 'fixtures', 'report');
 fs.rmSync(out, { recursive: true, force: true });
-const w = (p, o) => { const f = path.join(out, p); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(o)); };
+const w = (p, o) => { const f = path.join(out, p); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, zlib.gzipSync(JSON.stringify(o))); };
 
 const DAY0 = Math.floor(Date.UTC(2026, 10, 4) / 86400000); // 2026-11-04 jako numer doby
 const dates = [0, 1, 2].map(i => new Date((DAY0 + i) * 86400000).toISOString().slice(0, 10));
@@ -33,14 +33,14 @@ const lines = [
 ];
 
 const manifest = { format: 1, generated: '2026-11-12T14:00:00Z', rules_version: '1',
-  range: { from: dates[0], to: dates[2], days: dates, skipped_days: ['2026-11-03', '2026-11-11'] }, params: { match_max_dist_m: 75 }, lines: [], quality: 'data/quality.json' };
+  range: { from: dates[0], to: dates[2], days: dates, skipped_days: ['2026-11-03', '2026-11-11'] }, params: { match_max_dist_m: 75 }, lines: [], quality: 'data/quality.json.gz' };
 let courseId = 1;
 const srcTpl = (d, i) => ({ snapshot: `snapshots/gps/${d}/${d}T08:${String(i % 60).padStart(2, '0')}:00.000Z/a${i}.json.gz`, manifest: `runs/${d}/${d}T08:${String(i % 60).padStart(2, '0')}:00.000Z/a${i}.json`, run_status: i % 17 === 0 ? 'partial' : 'complete', source_status: 'stored', url: 'https://ckan2.multimediagdansk.pl/gpsPositions?v=2', fetchedAt: d + 'T08:00:00.000Z', receivedAt: d + 'T08:00:01.000Z', storedAt: d + 'T08:00:02.000Z', provenance_gap: false });
 
 for (const ln of lines) {
   const segById = Object.fromEntries(ln.segments.map(s => [s.id, s]));
 
-    w(`data/lines/${ln.slug}/geometry.json`, { format: 1, segments: ln.segments, variants: ln.variants.map(v => ({ key: v.key, dir: v.dir, headsign: v.headsign, segments: v.segs })) });
+    w(`data/lines/${ln.slug}/geometry.json.gz`, { format: 1, segments: ln.segments, variants: ln.variants.map(v => ({ key: v.key, dir: v.dir, headsign: v.headsign, segments: v.segs })) });
   const perDay = Object.fromEntries(dates.map(d => [d, { courses: [], c: { course: [], seg: [], endL: [], end: [], startL: [], start: [], dist: [] } }]));
   const counts = {};
   dates.forEach((d, di) => {
@@ -90,21 +90,21 @@ for (const ln of lines) {
         }
         counts[v.key].observations += obs.length;
         const truncated = (di === 0 && k === 0) ? 'start' : null;
-        w(`data/lines/${ln.slug}/courses/${id}.json`, { format: 1, id, line: ln.name, dir: v.dir, variant: v.key, headsign: v.headsign, vehicle: crs.vehicle, service: crs.service, startL, truncated, variant_status: v.status, segments: segs, arrival, observations: obs, sources: srcs });
+        w(`data/lines/${ln.slug}/courses/${id}.json.gz`, { format: 1, id, line: ln.name, dir: v.dir, variant: v.key, headsign: v.headsign, vehicle: crs.vehicle, service: crs.service, startL, truncated, variant_status: v.status, segments: segs, arrival, observations: obs, sources: srcs });
       }
     }
   });
   const days = {};
-  for (const d of dates) { w(`data/lines/${ln.slug}/days/${d}.json`, { format: 1, line: ln.name, date: d, courses: perDay[d].courses, c: perDay[d].c }); days[d] = `data/lines/${ln.slug}/days/${d}.json`; }
+  for (const d of dates) { w(`data/lines/${ln.slug}/days/${d}.json.gz`, { format: 1, line: ln.name, date: d, courses: perDay[d].courses, c: perDay[d].c }); days[d] = `data/lines/${ln.slug}/days/${d}.json.gz`; }
   const dirs = [...new Set(ln.variants.map(v => v.dir))].map(dir => {
     const vs = ln.variants.filter(v => v.dir === dir);
     return { id: dir, label: vs[0].headsign, other_headsigns: [...new Set(vs.map(v => v.headsign).filter(h => h !== vs[0].headsign))],
       variants: vs.map(v => ({ key: v.key, route_id: 1, trip_id: 1, headsign: v.headsign, in_gtfs: v.status !== 'absent_in_gtfs', status: v.status, courses: counts[v.key].courses, observations: counts[v.key].observations })) };
   });
-  manifest.lines.push({ name: ln.name, slug: ln.slug, skipped_records: ln.skipped, courses: Object.values(counts).reduce((a, c) => a + c.courses, 0), directions: dirs, geometry: `data/lines/${ln.slug}/geometry.json`, days });
+  manifest.lines.push({ name: ln.name, slug: ln.slug, skipped_records: ln.skipped, courses: Object.values(counts).reduce((a, c) => a + c.courses, 0), directions: dirs, geometry: `data/lines/${ln.slug}/geometry.json.gz`, days });
 }
-w('data/manifest.json', manifest);
-w('data/quality.json', { format: 1, inputs: { archive: '/workspace', gtfs: 'gtfsgoogle.zip', gtfs_feed_end_date: '20261125' },
+w('data/manifest.json.gz', manifest);
+w('data/quality.json.gz', { format: 1, inputs: { archive: '/workspace', gtfs: 'gtfsgoogle.zip', gtfs_feed_end_date: '20261125' },
   range: { from: dates[0], to: dates[2], skipped_days: [{ date: '2026-11-03', reason: 'niepełna doba na początku archiwum' }] },
   counts: { source_records: 100, snapshots_read: 99, snapshot_errors: 1, provenance_gaps: 0, raw_records: 5000, observations: 4000, conflicts: 3, without_trip: 12 },
   lines: { '127': { skipped_records: 12, raw_skipped_records: 15, courses: 48, variants_absent_in_gtfs: [{ variant: '99', courses: 1, observations: 10 }], segment_coverage: { '1': { passes: 10, with_value: 8, with_change: 7 } } } },

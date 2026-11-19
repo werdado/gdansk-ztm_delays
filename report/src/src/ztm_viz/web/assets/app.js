@@ -101,7 +101,7 @@
     if (location.protocol === 'file:') { $('file-notice').hidden = false; return; }
     $('app').hidden = false;
     status('Ładowanie danych…');
-    fetch('data/manifest.json').then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (m) {
+    ZtmFetch.json('data/manifest.json.gz').then(function (m) {
       if (m.format !== 1) throw new Error('nieobsługiwana wersja formatu danych: ' + m.format);
       if (!m.lines.length) throw new Error('raport nie zawiera żadnych linii');
       S.manifest = m;
@@ -110,7 +110,7 @@
       $('period').textContent = 'Zakres: ' + m.range.from + ' – ' + m.range.to + ' (pełne doby czasu lokalnego Gdańska).';
       buildStaticFilters();
       renderQuality();
-      fetch(m.quality).then(function (r) { return r.json(); }).then(function (q) { S.quality = q; renderQuality(); }).catch(function () {});
+      ZtmFetch.json(m.quality).then(function (q) { S.quality = q; renderQuality(); }).catch(function () {});
       window.addEventListener('hashchange', applyHash);
       applyHash();
     }).catch(function (e) { fail('Nie udało się wczytać raportu: ' + e.message + '. Sprawdź, czy katalog jest udostępniony przez HTTP.'); });
@@ -136,7 +136,7 @@
     syncFilters();
     var my = ++token, line = lineOf();
     var geoP = S.geo[line.name] ? Promise.resolve(S.geo[line.name]) :
-      fetch(line.geometry).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (g) { S.geo[line.name] = g; return g; });
+      ZtmFetch.json(line.geometry).then(function (g) { S.geo[line.name] = g; return g; });
     var showCourse = S.st.course !== null;
     $('summary-view').hidden = showCourse; $('course-view').hidden = !showCourse;
     status('Przeliczanie…');
@@ -348,7 +348,7 @@
   }
 
   /* ---------- widok kursu ---------- */
-  function courseUrl(line, id) { return new URL(line.geometry.replace(/geometry\.json$/, 'courses/' + id + '.json'), document.baseURI).href; }
+  function courseUrl(line, id) { return new URL(line.geometry.replace(/geometry\.json\.gz$/, 'courses/' + id + '.json.gz'), document.baseURI).href; }
   function renderCourse() {
     var root = $('course-view'); clear(root);
     var line = lineOf(), id = S.st.course;
@@ -357,7 +357,7 @@
     var body = h('div', { class: 'card' }, h('p', null, 'Ładowanie kursu ' + id + '…'));
     root.appendChild(body);
     var cached = S.courseCache[line.name + '/' + id];
-    var p = cached ? Promise.resolve(cached) : fetch(courseUrl(line, id)).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+    var p = cached ? Promise.resolve(cached) : ZtmFetch.json(courseUrl(line, id));
     var my = token;
     p.then(function (c) { S.courseCache[line.name + '/' + id] = c; if (my !== token) return; clear(body); body.className = ''; body.appendChild(courseBody(c)); window.scrollTo(0, 0); })
      .catch(function (e) {

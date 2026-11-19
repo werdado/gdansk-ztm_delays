@@ -1,14 +1,11 @@
 /* Web Worker: wczytuje pakiety dobowe linii i liczy agregaty (z aggregate.js). */
-importScripts('aggregate.js');
+importScripts('fetchjson.js', 'aggregate.js');
 var cache = {}; // linia -> Promise<pakiety>
 
 function loadLine(key, urls) {
   if (!cache[key]) {
     cache[key] = Promise.all(urls.map(function (u) {
-      return fetch(u).then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status + ' dla ' + u);
-        return r.json();
-      });
+      return ZtmFetch.json(u);
     })).catch(function (e) { delete cache[key]; throw e; });
   }
   return cache[key];

@@ -1,6 +1,9 @@
-"""Polecenie `report`: SQLite -> statyczny katalog raportu (HTML, zasoby, geometria, wkłady i szczegóły kursów)."""
+"""Polecenie `report`: SQLite -> statyczny katalog raportu (HTML, zasoby, geometria, wkłady i szczegóły kursów).
+
+Pliki danych (`data/**`) są zapisywane jako gzip (`*.json.gz`); rozpakowuje je przeglądarka (patrz ADR 0006)."""
 from __future__ import annotations
 
+import gzip
 import json
 import logging
 import os
@@ -25,7 +28,8 @@ def _s(v):
 
 def _dump(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    raw = json.dumps(obj, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    path.write_bytes(gzip.compress(raw, compresslevel=9, mtime=0))   # mtime=0: ten sam wynik przy ponownym generowaniu
 
 
 def report(dataset: Path, out: Path) -> None:
@@ -74,7 +78,7 @@ def _check_target(out: Path, dataset: Path) -> None:
     if resolved == dataset.resolve().parent or dataset.resolve().is_relative_to(resolved) \
             or (resolved / "runs").exists() or (resolved / "snapshots").exists():
         raise SystemExit(f"Niepoprawne wyjście: {out} zawiera zbiór lub archiwum; wskaż osobny katalog raportu.")
-    if any(out.iterdir()) and not ((out / "index.html").is_file() and (out / "data" / "manifest.json").is_file()):
+    if any(out.iterdir()) and not ((out / "index.html").is_file() and any((out / "data" / n).is_file() for n in ("manifest.json.gz", "manifest.json"))):
         raise SystemExit(f"Niepoprawne wyjście: {out} nie jest pusty i nie wygląda na poprzedni raport.")
 
 
@@ -87,7 +91,7 @@ def _write_data(con: sqlite3.Connection, root: Path) -> None:
                 "rules_version": meta.get("rules_version", RULES_VERSION),
                 "range": {"from": rng["from"], "to": rng["to"], "days": rng["days"],
                           "skipped_days": [d["date"] for d in rng["skipped_days"]]},
-                "params": json.loads(meta["params"]), "lines": [], "quality": "data/quality.json"}
+                "params": json.loads(meta["params"]), "lines": [], "quality": "data/quality.json.gz"}
     for line in lines:
         log.info("  linia %s: geometria, wkłady dób i szczegóły kursów", line)
         entry = _write_line(con, root, line, rng["days"], quality)
@@ -100,8 +104,8 @@ def _write_data(con: sqlite3.Connection, root: Path) -> None:
                 {"name": line, "courses": entry["courses"], "variants": entry["variants_outside_timetable"]})
     if not manifest["lines"]:
         raise SystemExit("Żadna ze wskazanych linii nie ma wariantów z geometrią pomocniczą – raport byłby pusty.")
-    _dump(root / "data" / "quality.json", quality)
-    _dump(root / "data" / "manifest.json", manifest)
+    _dump(root / "data" / "quality.json.gz", quality)
+    _dump(root / "data" / "manifest.json.gz", manifest)
 
 
 def _write_line(con, root: Path, line: str, days: list[str], quality: dict):
@@ -138,7 +142,7 @@ def _write_line(con, root: Path, line: str, days: list[str], quality: dict):
     seg_lists = {v["key"]: json.loads(v["segments"]) for v in variants}
     geo_variants = [{"key": v["key"], "dir": v["dir"], "headsign": v["headsign"] or "", "segments": seg_lists[v["key"]]}
                     for v in variants if v["status"] == "ok"]
-    _dump(root / base / "geometry.json", {"format": FORMAT, "segments": geo_segments, "variants": geo_variants})
+    _dump(root / base / "geometry.json.gz", {"format": FORMAT, "segments": geo_segments, "variants": geo_variants})
     # ---- wkłady po dobach ---------------------------------------------------------------------
     rows = con.execute("""select sv.*, c.dir, c.variant_key, c.sched_start, c.vehicle_code, c.vehicle_service
                           from segment_values sv join courses c on c.id=sv.course_id
@@ -166,7 +170,7 @@ def _write_line(con, root: Path, line: str, days: list[str], quality: dict):
         c["dist"].append(round(r["end_dist"], 1) if r["end_dist"] is not None else None)
     day_files = {}
     for d, b in per_day.items():
-        path = f"{base}/days/{d}.json"
+        path = f"{base}/days/{d}.json.gz"
         _dump(root / path, {"format": FORMAT, "line": line, "date": d, "courses": b["courses"], "c": b["c"]})
         day_files[d] = path
     # ---- szczegóły kursów ----------------------------------------------------------------------
@@ -176,7 +180,7 @@ def _write_line(con, root: Path, line: str, days: list[str], quality: dict):
     skipped = quality["lines"].get(line, {}).get("skipped_records", 0)
     return {"name": line, "slug": slug, "skipped_records": skipped,
             "raw_skipped_records": quality["lines"].get(line, {}).get("raw_skipped_records", 0), "courses": n_courses,
-            "directions": directions, "variants_outside_timetable": outside, "geometry": f"{base}/geometry.json", "days": day_files}
+            "directions": directions, "variants_outside_timetable": outside, "geometry": f"{base}/geometry.json.gz", "days": day_files}
 
 
 def _write_course(con, dirpath: Path, c, sources: dict, variant_segs: list[int]) -> None:
@@ -229,4 +233,4 @@ def _write_course(con, dirpath: Path, c, sources: dict, variant_segs: list[int])
               "headsign": c["headsign"] or "", "vehicle": _s(c["vehicle_code"]), "service": c["vehicle_service"],
               "startL": to_local_wall(c["sched_start"]), "truncated": c["truncated"], "variant_status": c["variant_status"],
               "segments": segs, "arrival": arrival, "observations": obs_out, "sources": src_list}
-    _dump(dirpath / f"{cid}.json", detail)
+    _dump(dirpath / f"{cid}.json.gz", detail)

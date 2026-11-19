@@ -4,7 +4,7 @@ Zestaw skryptów w Pythonie, który z lokalnego archiwum GPS tworzy statyczny, i
 opóźnienia wzdłuż trasy) dla wskazanych linii. Archiwum jest tylko czytane; wyniki trafiają do osobnego katalogu.
 
 Podstawa: [założenia](../docs/zalozenia-wizualizacji.md), [plan](../docs/plans/0001-wizualizacja-opoznien-ztm.md),
-[ADR 0001–0005](../docs/adr), [słownik](../GLOSSARY.md). Format danych raportu: [FORMAT.md](FORMAT.md).
+[ADR 0001–0006](../docs/adr), [słownik](../GLOSSARY.md). Format danych raportu: [FORMAT.md](FORMAT.md).
 
 ## Wymagania i instalacja
 
@@ -39,6 +39,10 @@ uv run ztm-viz serve --report /workspace/outputs/ztm/report --port 8000   # http
 * Katalog raportu jest samodzielny i działa pod dowolnym serwerem plików statycznych, także w podkatalogu adresu
   (ścieżki względne, stan wyboru w fragmencie `#…`). Przez `file://` pokazuje komunikat, że wymaga HTTP. Podkład
   OpenStreetMap jest pobierany z internetu; jego brak nie blokuje tras ani wykresu.
+* Pliki danych w `data/` są zapisane jako `*.json.gz` (ok. 8× mniej niż surowy JSON: tydzień dla linii 127 i 162 –
+  160 MB → 20 MB). Przeglądarka rozpakowuje je sama, więc hosting nie musi kompresować. Przy wgrywaniu do R2/S3 ustaw
+  `Content-Type: application/gzip` i **nie** ustawiaj `Content-Encoding` (ADR 0006); plików `.json.gz` nie wolno
+  rozpakowywać ani przekodowywać po drodze.
 
 ## Jak liczone są wartości (skrót; pełne reguły w planie)
 

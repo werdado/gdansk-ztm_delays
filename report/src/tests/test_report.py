@@ -1,4 +1,5 @@
 """Eksport raportu: statyczny katalog, kontrakt danych i niezależność od surowego archiwum."""
+import gzip
 import json
 import shutil
 from pathlib import Path
@@ -25,12 +26,12 @@ def report(world):
 
 
 def load(p: Path):
-    return json.loads(p.read_text())
+    return json.loads(gzip.decompress(p.read_bytes()))
 
 
 def test_report_is_static_directory_with_relative_manifest_paths(report):
     assert (report / "index.html").is_file()
-    m = load(report / "data" / "manifest.json")
+    m = load(report / "data" / "manifest.json.gz")
     assert m["range"]["from"] == "2026-11-04" and m["range"]["to"] == "2026-11-10"
     line = m["lines"][0]
     assert line["name"] == "7" and not line["geometry"].startswith("/")
@@ -44,13 +45,20 @@ def test_line_list_comes_from_dataset_only(world):
                                                                   lat=54.36, service="008-01", vehicle_id=3)])
     prepare(b.root, gtfs, out, ["N8"])
     main(["report", "--dataset", str(out), "--out", str(out.parent / "r")])
-    m = load(out.parent / "r" / "data" / "manifest.json")
+    m = load(out.parent / "r" / "data" / "manifest.json.gz")
     assert [l["name"] for l in m["lines"]] == ["N8"]
     assert m["lines"][0]["directions"][0]["label"] == "Nocna"
 
 
+def test_all_data_files_are_gzip_and_none_is_plain_json(report):
+    files = [f for f in (report / "data").rglob("*") if f.is_file()]
+    assert files and all(f.name.endswith(".json.gz") and f.read_bytes()[:2] == b"\x1f\x8b" for f in files)
+    m = load(report / "data" / "manifest.json.gz")
+    assert m["quality"].endswith(".json.gz") and m["lines"][0]["geometry"].endswith("/geometry.json.gz")
+
+
 def test_day_bundle_holds_exact_contributions_once_per_course(report):
-    m = load(report / "data" / "manifest.json")
+    m = load(report / "data" / "manifest.json.gz")
     day = load(report / m["lines"][0]["days"]["2026-11-10"])
     c = day["c"]
     assert len(day["courses"]) == 1
@@ -64,9 +72,9 @@ def test_day_bundle_holds_exact_contributions_once_per_course(report):
 
 
 def test_course_detail_traces_values_to_source_records(report):
-    m = load(report / "data" / "manifest.json")
+    m = load(report / "data" / "manifest.json.gz")
     cid = load(report / m["lines"][0]["days"]["2026-11-10"])["courses"][0]["id"]
-    d = load(report / "data" / "lines" / "7" / "courses" / f"{cid}.json")
+    d = load(report / "data" / "lines" / "7" / "courses" / f"{cid}.json.gz")
     assert d["variant_status"] == "ok" and d["arrival"]["delay"] == 215
     first = d["observations"][0]
     assert first["phase"] == "pre_departure"
@@ -120,6 +128,6 @@ def test_line_absent_from_timetable_is_not_offered_but_stays_in_quality(world):
           + [rec for _, rec in run_scenario(BASE, STANDARD_STEPS, line="171", route_id=10171, service="171-01", vehicle_id=9)])
     prepare(b.root, gtfs, out, ["7", "171"])
     main(["report", "--dataset", str(out), "--out", str(out.parent / "r")])
-    m = load(out.parent / "r" / "data" / "manifest.json")
+    m = load(out.parent / "r" / "data" / "manifest.json.gz")
     assert [l["name"] for l in m["lines"]] == ["7"]
     assert m["lines_without_timetable"][0]["name"] == "171"

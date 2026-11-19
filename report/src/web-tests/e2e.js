@@ -73,7 +73,7 @@ const ok = (m) => console.log('  ✔', m);
   await page.waitForFunction(() => /Linia N8/.test(document.getElementById('active-filter').textContent)); ok('linia N8');
 
   // błąd pobrania kursu i ponowienie
-  let fail = true; await page.route(/courses\/\d+\.json/, r => { if (fail) r.abort(); else r.continue(); });
+  let fail = true; await page.route(/courses\/\d+\.json\.gz/, r => { if (fail) r.abort(); else r.continue(); });
   await page.goto(base + '#line=127&dir=0&course=5'); await page.waitForSelector('#course-view .notice.error');
   assert.match(await page.textContent('#course-view'), /Nie udało się pobrać/);
   fail = false; await page.click('text=Spróbuj ponownie'); await page.waitForSelector('#course-view .kv'); ok('błąd pobrania kursu i udane ponowienie');
